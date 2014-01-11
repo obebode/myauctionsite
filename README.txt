@@ -1,0 +1,2 @@
+This is a mini auction site developed using Python and Django Framework as well as other associated web technologies. 
+The web application functions very much like the popular Ebay site but has limited features compared to Ebay.
