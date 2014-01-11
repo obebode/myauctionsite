@@ -1,0 +1,13 @@
+{% load i18n %}
+{% block content %}
+
+    <b> Thanks.</b>
+
+    {% if mesg %}
+        {{ mesg }}
+    {% endif %}
+
+    You may proceed to <a href="/home/"> homepage</a>.
+
+
+{% endblock %}

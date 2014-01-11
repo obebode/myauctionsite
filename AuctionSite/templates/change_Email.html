@@ -1,0 +1,18 @@
+
+{% load i18n %}
+
+
+
+{% block left %}
+<p><b>Please change your email</b></p>
+{% if error%}
+    <p> <b>{{ error }}</b> </p>
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+
+{% endblock %}

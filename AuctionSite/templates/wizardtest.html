@@ -1,0 +1,39 @@
+<h2> Create Auction</h2>
+{% block content %}
+
+    <p><b>Confirm Auction</b></p>
+    {% if error %}
+        {{ error}}
+    {% endif %}
+
+    <b>{{b_title}}</b>
+    <table>
+        <tr> <td> <b>{{auction_title}}</b> </td></tr>
+        <tr> <td> <b>{{auction_category}}</b> </td></tr>
+        <tr> <td> <b>{{auction_minimumprice}}</b> </td></tr>
+
+        <tr> <td> <b>{{auction_startdate}}</b> </td></tr>
+        <tr> <td> <b>{{auction_enddate}}</b> </td></tr>
+        <tr> <td> <b>{{auction_description}}</b> </td></tr>
+
+    </table>
+
+    <form action="/saveauctionConf/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <INPUT TYPE=HIDDEN NAME="auction_title" VALUE="{{auction_title}}">
+        <INPUT TYPE=HIDDEN NAME="auction_description" VALUE="{{auction_description}}">
+        <INPUT TYPE=HIDDEN NAME="auction_category" VALUE="{{auction_category}}">
+        <INPUT TYPE=HIDDEN NAME="auction_minimumprice" VALUE={{auction_minimumprice}}>
+        <INPUT TYPE=HIDDEN NAME="strip_time" VALUE={{st}}>
+        <INPUT TYPE=HIDDEN NAME="strip_date" VALUE={{sd}}>
+        <INPUT TYPE=HIDDEN NAME="strip_enddate" VALUE={{ed}}>
+        <INPUT TYPE=HIDDEN NAME="strip_endtime" VALUE={{et}}>
+        <INPUT TYPE=HIDDEN NAME="auction_seller" VALUE={{auction_seller}}>
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+
+{% endblock %}

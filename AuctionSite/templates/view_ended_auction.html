@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+        {% block title %}View Ended Auction Event{% endblock %}
+
+        {% block left %}
+            <h2> {{ auction_event.Title }}</h2>
+
+            <div class="info">
+                This auction has ended.
+                {% ifequal auction_event.winning_bidder request.user %}
+                    Congratulations! You won this auction.
+                {% endifequal %}
+                {% ifequal auction_event.Seller request.user %}
+                    You are selling this item.
+                {% endifequal %}
+            </div>
+            <p><strong> Final Price:</strong>${{ auction_event.get_current_price }}</p>
+
+            <p><strong>Seller: </strong>{{ auction_event.Seller.username }}</p>
+
+            <p><strong>Category: </strong>{{ auction_event.category }}</p>
+
+            <p><strong>End Time: </strong>{{ auction_event.EndDate}}</p>
+
+            <p>{{ auction_event.bid_set.count }} bid(s) placed. <a href="{% url YaaasApp_view_bid_history auction_event.pk %}">View bid history.</a></p>
+            <hr />
+            <h3>Description:</h3>
+           <p> {{ auction_event.Description }}</p>
+        {% endblock %}
+

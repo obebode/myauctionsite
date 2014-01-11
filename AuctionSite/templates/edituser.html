@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<h2>Edit Account Information</h2>
+
+
+<p><b>Please edit the account information</b></p>
+{% if error%}
+    <p> <b>{{ error }}</b> </p>
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>

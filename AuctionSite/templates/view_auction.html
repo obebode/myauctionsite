@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+    {% block title %}View Auction{% endblock %}
+
+    {% block extra_head %}
+        <link rel="stylesheet" href="/static/css/jquery.countdown.css" type="text/css" />
+
+    {% endblock %}
+
+
+    {% block extra_scipts %}
+            {% if auction_event.is_running %}
+            <script type="text/javascript" src="/static/jquery.countdown.min.js"></script>
+            <script type="text/javascript">
+            $(document).ready(function(){
+            var bid_end_time = new Date();
+            bid_end_time = new Date({{ auction_event.EndDate|date:"Y, m-1, d, H, i, s" }});
+            $('#defaultCountdown').countdown({until: bid_end_time, expiryUrl: '{% url YaaasApp_view_ended_auction_event auction_event.pk %}'});
+            });
+            </script>
+
+            {% endif %}
+
+    {% endblock %}
+
+    {% if error%}
+        <p> <b>{{ error }}</b> </p>
+    {% endif %}
+
+    {% block left %}
+
+
+    <h2>{{ auction_event.Title }}</h2>
+        <div id='defaultCountdown'></div>
+        {% if auction_event.has_ended%}
+            <div class="info">
+                This auction has ended.
+                {% ifequal auction_event.winning_bidder request.user %}
+                    Congratulations! You won this auction.
+                {% endifequal %}
+            </div>
+        {% endif %}
+
+    {% ifnotequal auction_event request.user %}
+
+    {% endifnotequal %}
+
+            <p><strong>Title: </strong>{{ auction_event.Title }}</p>
+            <p><strong>Category: </strong>{{ auction_event.category }}</p>
+            <p><strong>Description: </strong> {{auction_event.description }}</p>
+            <p><strong>StartDate: </strong>{{ auction_event.StartDate }}</p>
+            <p><strong>EndDate: </strong>{{ auction_event.EndDate }}</p>
+            <p><strong>Current Price: </strong> ${{ auction_event.get_current_price}}</p>
+            <p><strong>Seller: </strong> {{ auction_event.Seller.username }}</p>
+            <p>{{ auction_event.bid_set.count }} bid(s) placed. <a href="{% url YaaasApp_view_bid_history auction_event.pk %}">View bid history.</a></p>
+
+            <p><a href="{% url YaaasApp_edit_auction_description auction_event.Title %}">Edit.</a></p>
+        
+             {% if auction_event.is_running %}
+                {% ifnotequal auction_event.Seller request.user %}
+                {% if form %}
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Place Bid" />
+                    </form>
+                {% endif %}
+                {% endifnotequal %}
+            {% endif %}
+
+        <hr />
+                <h3>Description:</h3>
+                <p>{{ auction_event.description }}</p>
+        {% endblock %}
+
+

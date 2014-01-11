@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}Search Results{% endblock %}
+
+{% block left %}
+    <h3>Search Results</h3>
+    <table cellpadding=0 cellspacing=0 class="contenttable">
+        <thead>
+        <tr>
+            <td>Title</td>
+            <td>Category</td>
+            <td>Description</td>
+            <td>StartDate</td>
+            <td>EndDate</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for auction_event in found_auctions %}
+            <tr>
+                <td><a href="{% url YaaasApp_view_auction_event auction_event.pk %}">{{ auction_event.Title }}</a></td>
+                <td>{{ auction_event.category }}</td>
+                <td>{{ auction_event.description }}</td>
+                <td>{{ auction_event.StartDate}}</td>
+                <td>{{ auction_event.EndDate}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<h2>Edit Auction</h2>
+
+{% block content %}
+    <p><b>Please edit the description of the Auction</b></p>
+    {% if error%}
+        <p> <b>{{ error }}</b> </p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+
+{% endblock %}

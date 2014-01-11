@@ -1,0 +1,20 @@
+
+
+{% extends "base.html" %}
+{% load i18n %}
+<h1>Create Auction</h1>
+{% block title %}Create Auction{% endblock %}
+    {% if error%}
+        <p> <b>{{ error }}</b> </p>
+    {% endif %}
+
+    {% block left %}
+    <form action="/createauctionConf/" method="post">
+        {% csrf_token %}
+        <fieldset>
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+            </fieldset>
+    </form>
+
+{% endblock %}

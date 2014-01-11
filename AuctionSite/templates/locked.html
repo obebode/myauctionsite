@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Auction: {{ Title }}</title>
+</head>
+<body>
+<h1>{{ Title }}</h1>
+<p><b>The auction is locked by another user and it cannot be edited right now.</b></p>
+<p>{{ description|safe }}</p>
+<form action="/auction/{{ Title }}/edit/" method="get">
+    <input type="submit" value="Edit">
+</form>
+</body>
+
+</html>

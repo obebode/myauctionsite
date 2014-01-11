@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+<h2> Auctions</h2>
+{% block header %}
+    <ul>
+
+        <li><a href="/login/">Hi! Sign in </a></li>
+        <li><a href="/createuser/">Register</a></li>
+
+        <li><a href="/createauctionConf/">Create auction</a></li>
+    </ul>
+{% endblock %}
+{% block left %}
+    <strong>{{ msg }}</strong>
+    {%  if not auction_lists %}
+        <p>No active auctions<p>
+    {% endif %}
+
+{%  for auction_event in auction_lists %}
+    <div class="contentitem{% if not forloop.last%} withbreak{% endif %}">
+        <h2><a href="{% url YaaasApp_view_auction_event auction_event.pk %}">{{ auction_event.Title }}</a></h2>
+        <p>Category:{{ auction_event.category }}</p>
+        <p>StartDate:{{ auction_event.StartDate }}</p>
+        <p>EndDate:{{ auction_event.EndDate }}</p>
+    </div>
+    <hr/>
+{%  endfor %}
+{% endblock %}

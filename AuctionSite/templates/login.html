@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Web Form</title>
+    <link rel='stylesheet' type='text/css' href='/static/css/stylesheet.css'/>
+    <script type='text/javascript' src='script.js'></script>
+
+</head>
+<body>
+<div id="header">
+    <ul>
+
+        <li><a href="/login/">Hi! Sign in </a></li>
+        <li><a href="/createuser/">Register</a></li>
+
+        <li><a href="/createauctionConf/">Create auction</a></li>
+
+
+    </ul>
+</div>
+<div id="bodyContainer">
+
+    <div id="right">
+
+        <p>New user?</p>
+        <p> Please register </p><br/>
+        <div id="button">
+            <a href="/createuser/"> Register </a>
+        </div>
+    </div>
+    <div id="left">
+
+        <p><b>{{ error }}</b></p>
+        {% if form.errors%}
+            <p> Password or username is incorrect </p>
+        {% endif %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend> Please login </legend>
+                <label for="username">Username :</label>
+                <input type="text" name="username" value="" id="username"><br/><br/>
+                <label for="password">Password :</label>
+                <input type="password" name="password" value="" id="password"><br/><br/>
+
+                <input type="submit" value="Submit">
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

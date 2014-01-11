@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+    {% block title %}View Bid History{% endblock %}
+
+    {% block left %}
+        <h3>Bid history for <a href="{% url YaaasApp_view_auction_event auction_event.pk %}">{{ auction_event.Title|title }}</a></h3>
+        <table cellpadding=0 cellspacing=0 class="contenttable">
+            <thead>
+            <tr>
+                <td>User</td>
+                <td>Amount</td>
+                <td>Time</td>
+            </tr>
+            </thead>
+            <tbody>
+                {% for bid in bid_set %}
+                    <tr>
+                        <td>{% ifequal auction_event.Seller request.user %}<a>{{ bid.bidder.username }}</a>{% else %}{% ifequal bid.bidder request.user %}Your bid{% else %}{{ bid.bidder.username }}{% endifequal %}{% endifequal %}</td>
+                        <td>${{ bid.amount }}{% ifequal highest_bid bid %} (Winning bid){% endifequal %}</td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}

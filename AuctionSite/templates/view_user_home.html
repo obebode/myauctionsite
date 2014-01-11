@@ -1,0 +1,104 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "All auctions." %}</title>
+    <link rel='stylesheet' type='text/css' href='/static/css/stylesheet.css'/>
+    <script type='text/javascript' src='script.js'></script>
+
+</head>
+<body>
+<div id="header">
+    <ul>
+        <a href="/edituser/">Edit Profile</a>
+        <a href="/createauctionConf/">Create auction</a>
+        <a href="/password_change/">Change Password</a>
+        <a href="/change_Email/">Change Email</a>
+        <a href="/logout/">logout</a>
+        <li>Categories<li>
+
+    </ul>
+</div>
+<div id="bodyContainer">
+
+    <div id="right">
+
+        <form action="{% url YaaasApp_search_auction_events %}" method="post">
+            {% csrf_token %}
+        &nbsp;<input type="text" name="query"/>
+        <input type="submit" value="Search">
+        </form>
+
+    </div>
+    <div id="left">
+        <h3>{% trans "Newest auctions" %}</h3>
+        <table cellpadding=0 cellspacing=0 class="contenttable">
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Category</td>
+                <td>Description</td>
+                <td>StartDate</td>
+                <td>EndDate</td>
+
+            </tr>
+            </thead>
+            <tbody>
+                {% for auction_event in auction_lists %}
+                    <tr>
+                        <td><a href="{% url YaaasApp_view_auction_event auction_event.pk %}"> {{ auction_event.Title }}</a></td>
+                        <td> {{ auction_event.category }}</td>
+                        <td> {{ auction_event.description }}</td>
+                        <td> {{ auction_event.StartDate }}</td>
+                        <td> {{ auction_event.EndDate}}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+                <h3>Auctions Won</h3>
+                <table cellpadding=0 cellspacing=0 class="contenttable">
+                    <thead>
+                    <tr>
+                        <td>Title</td>
+                        <td>Condition</td>
+                        <td>Price</td>
+                        <td>Ended on</td>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for auction_event in won_auctions %}
+                            <tr>
+                                <td><a href="{% url YaaasApp_view_auction_event auction_event.pk %}">{{ auction_event.Title|title }}</a></td>
+
+                                <td>${{ auction_event.get_current_price }}</td>
+                                <td>{{ auction_event.EndDate|date:"g:i A, j N Y" }}</td>
+
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+    </div>
+</div>
+    <div id="footer">
+        <div id="div_footer">
+            <form action="/i18n/setlang/" method="post">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="/next/page/" />
+                <select name="language">
+                    {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go" />
+            </form>
+            <a href="{% url YaaasApp_set_lang %}?lang=fi&next={{request.path}}">Finnish</a>
+        </div>
+    </div>
+</body>
+</html>

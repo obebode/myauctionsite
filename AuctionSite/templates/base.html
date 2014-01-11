@@ -1,0 +1,47 @@
+
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title> {% block title %}{% endblock %}</title>
+    <link rel='stylesheet' type='text/css' href='/static/css/stylesheet.css'/>
+    <script type="text/javascript" src="/static/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery.countdown.css" type="text/css" />
+
+
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+<div id="header">
+    {% block header%}
+    <ul>
+
+    </ul>
+    {% endblock %}
+</div>
+<div id="bodyContainer">
+
+
+    <div id="right">
+        {% block right %}
+
+            <form action="{% url YaaasApp_search_auction_events %}" method="post">
+                {% csrf_token %}
+                &nbsp;<input type="text" name="query"/>
+                <input type="submit" value="Search">
+            </form>
+
+        {% endblock %}
+    {% block extra_scipts %}{% endblock %}
+    </div>
+    <div id="left">
+        {% block left %}{% endblock %}
+    </div>
+</div>
+    <div id="footer"> {% block footer %}
+
+    {% endblock %}</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% load i18n %}
+{% block title %}Create Auction{% endblock %}
+
+{% block content %}
+    <form action="." method="post" class="uniForm">
+        {% csrf_token %}
+        {{ auction_form.as_p }}
+        <p><input type="submit" value="Create Auction" /></p>
+    </form>
+{% endblock %}

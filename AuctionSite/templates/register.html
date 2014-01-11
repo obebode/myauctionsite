@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>Register Form</title>
+    <link rel='stylesheet' type='text/css' href='/static/css/stylesheet.css'/>
+    <script type='text/javascript' src='script.js'></script>
+
+</head>
+<body>
+<div id="header">
+    <ul>
+
+        <li><a href="/login/">Hi! Sign in </a></li>
+        <li><a href="/createuser/">Register</a></li>
+
+        <li><a href="/createauctionConf">Create auction</a></li>
+
+
+    </ul>
+</div>
+<div id="bodyContainer">
+
+    <div id="right">
+
+        <p>Already registered?</p>
+        <p> Please login </p><br/>
+        <div id="button">
+            <a href="/login/"> Login </a>
+        </div>
+    </div>
+    <div id="left">
+        {% if error%}
+            <p> <b>{{ error }}</b> </p>
+        {% endif %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Create the account">
+        </form>
+    </div>
+</div>
+</body>
+</html>
